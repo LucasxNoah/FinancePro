@@ -3,67 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinancePro | Batch 2029 Final</title>
+    <title>FinancePro</title>
     <link rel="stylesheet" href="main.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-
     <aside>
-        <h2>FinancePro</h2>
-        <div id="profile-list" style="margin-top: 20px;"></div>
-        <button onclick="addProfile()">+ New Profile</button>
-        
-        <button class="btn-alt" onclick="toggleTheme()">🌓 Change Theme</button>
-        <button class="btn-alt" style="margin-top:10px; background:#991b1b" onclick="resetApp()">🗑️ Reset All</button>
+        <h2 class="brand-logo">FinancePro</h2>
+        <div id="profile-list"></div>
+        <div class="aside-footer">
+            <button id="add-profile-btn" onclick="addProfile()">+ New Profile</button>
+            <button id="reset-app-btn" class="btn-alt" onclick="resetApp()">🗑️ Reset All</button>
+        </div>
     </aside>
 
     <main>
         <div class="header-section">
             <h1 id="header-title">Dashboard</h1>
-            <input type="text" id="search-input" placeholder="🔍 Search transactions...">
         </div>
-
         <div class="stats-row">
-            <div class="card"><small>Net Balance</small><h2 id="net-bal">$0.00</h2></div>
-            <div class="card"><small>Total Income</small><h2 id="inc-bal" class="income-val">$0.00</h2></div>
-            <div class="card"><small>Total Expenses</small><h2 id="exp-bal" class="expense-val">$0.00</h2></div>
+            <div class="card"><small>Net Balance</small><h2 id="net-bal">₹0.00</h2></div>
+            <div class="card"><small>Total Income</small><h2 id="inc-bal" class="income-val">₹0.00</h2></div>
+            <div class="card"><small>Total Expenses</small><h2 id="exp-bal" class="expense-val">₹0.00</h2></div>
         </div>
 
         <div class="dashboard-grid">
-            <div class="card">
-                <h3>Transaction History</h3>
+            <div class="card history-card">
+                <div class="card-header">
+                    <h3>History</h3>
+                    <div class="controls">
+                        <select id="category-filter" onchange="changeDashboard()">
+                            <option value="all">📂 Categories</option>
+                            <option value="Food">🍔 Food</option>
+                            <option value="Salary">💰 Salary</option>
+                            <option value="Grants">📝 Grants</option>
+                            <option value="Bills">🧾 Bills</option>
+                            <option value="Rents">🏡 Rents</option>
+                            <option value="Fun">🎬 Entertainment</option>
+                            <option value="Travel">🚗 Transport</option>
+                            <option value="Investment">💹 Investment</option>
+                            <option value="Misc">🗂️ Misc</option>
+                        </select>
+                        <select id="filter-select" onchange="changeDashboard()">
+                            <option value="all">🌐 All Types</option>
+                            <option value="expenditure">📉 Expenditure</option>
+                            <option value="income">📈 Income</option>
+                        </select>
+                        <input type="text" id="search-input" placeholder="🔍 Search...">
+                    </div>
+                </div>
                 <div id="tx-list"></div>
             </div>
 
             <div class="side-panel">
-                <div class="card" style="margin-bottom: 25px;">
-                    <h3>New Entry</h3>
+                <div class="card goal-card">
+                    <h3>🎯 Goal Tracker</h3>
+                    <div id="goal-display">
+                        <div class="goal-info">
+                            <h4 id="goal-name">No Goal</h4><small id="goal-percent" class="income-val">0%</small>
+                        </div>
+                        <div class="bar-container"><div id="goal-bar" class="bar-fill"></div></div>
+                        <small id="goal-status">₹0 / ₹0</small>
+                    </div>
+                    <button onclick="setNewGoal()" class="btn-outline">Edit Goal</button>
+                </div>
+
+                <div class="card" id="form-card">
+                    <h3 id="form-title">New Entry</h3>
                     <form id="entry-form">
+                        <input type="hidden" id="edit-id">
+                        <select id="e-type">
+                            <option value="debit">📉 Debit (Expense)</option>
+                            <option value="credit">📈 Credit (Income)</option>
+                        </select>
                         <input type="text" id="e-desc" placeholder="Description" required>
-                        <input type="number" id="e-amt" placeholder="Amount (e.g. -50)" required>
+                        <input type="number" id="e-amt" placeholder="Amount" step="0.01" required>
                         <select id="e-cat">
                             <option value="Food">🍔 Food</option>
-                            <option value="Salary">💰 Salary/Income</option>
-                            <option value="Grants">✍ Grants</option>
-                            <option value="Bills">🧾 Bills </option>
-                            <option value="Rents">🏠 Rent</option>
+                            <option value="Salary">💰 Salary</option>
+                            <option value="Grants">📝 Grants</option>
+                            <option value="Bills">🧾 Bills</option>
+                            <option value="Rents">🏡 Rents</option>
                             <option value="Fun">🎬 Entertainment</option>
                             <option value="Travel">🚗 Transport</option>
                             <option value="Investment">💹 Investment</option>
-                            <option value="Miscellaneous">🗂️ Miscellaneous</option>
+                            <option value="Misc">🗂️ Misc</option>
                         </select>
-                        <button type="submit">Add to Profile</button>
+                        <button type="submit" id="submit-btn">Add Transaction</button>
+                        <button type="button" id="cancel-edit" class="hidden" onclick="cancelEdit()">Cancel Edit</button>
                     </form>
                 </div>
 
                 <div class="card">
-                    <h3>Spend Analysis</h3>
+                    <div class="card-header">
+                        <h3>Spend Analysis</h3>
+                        <div class="analysis-header-info">
+                            <small id="total-spend-tag" class="expense-val">₹0</small>
+                            <button onclick="openFullAnalytics()" class="more-link">More ↗</button>
+                        </div>
+                    </div>
                     <div id="graph-container"></div>
                 </div>
             </div>
         </div>
-    </main>
 
+        <div id="analytics-page" class="modal-overlay hidden">
+            <div class="card analytics-modal">
+                <div class="card-header">
+                    <h2 class="accent-text">Detailed Insights</h2>
+                    <button onclick="closeFullAnalytics()" class="btn-alt" style="width: auto;">Close</button>
+                </div>
+                <div class="stats-row modal-stats" style="grid-template-columns: repeat(4, 1fr);">
+                    <div class="card inner-card"><small>Top Category</small><h3 id="top-cat-name">None</h3></div>
+                    <div class="card inner-card"><small>Daily Burn</small><h3 id="avg-spend">₹0</h3></div>
+                    <div class="card inner-card"><small>Survival</small><h3 id="survival-days">0 Days</h3></div>
+                    <div class="card inner-card"><small>Savings Ratio</small><h3 id="savings-ratio">0%</h3></div>
+                </div>
+                <div class="budget-management-area">
+                    <div class="budget-header">
+                        <small class="text-muted">BUDGET CONTROL</small>
+                        <button onclick="setCategoryBudget()" class="edit-link" style="width: auto; margin:0;">Set New Limit ⚙️</button>
+                    </div>
+                </div>
+                <div id="detailed-graph-list"></div>
+            </div>
+        </div>
+
+        <div id="modal-overlay" class="modal-overlay hidden">
+            <div class="card modal-content">
+                <h3 id="modal-title">Enter Details</h3>
+                <div id="modal-body">
+                    <input type="text" id="modal-input-1">
+                    <select id="modal-drop-1" class="hidden">
+                        <option value="Food">🍔 Food</option>
+                        <option value="Salary">💰 Salary</option>
+                        <option value="Grants">📝 Grants</option>
+                        <option value="Bills">🧾 Bills</option>
+                        <option value="Rents">🏡 Rents</option>
+                        <option value="Fun">🎬 Entertainment</option>
+                        <option value="Travel">🚗 Transport</option>
+                        <option value="Investment">💹 Investment</option>
+                        <option value="Misc">🗂️ Misc</option>
+                    </select>
+                    <input type="number" id="modal-input-2" class="hidden">
+                </div>
+                <div class="modal-actions">
+                    <button onclick="closeModal()" class="btn-alt">Cancel</button>
+                    <button id="modal-confirm-btn">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </main>
     <script src="app.js"></script>
 </body>
 </html>
