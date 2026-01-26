@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="main.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
+
 <body>
     <aside>
         <h2 class="brand-logo">FinancePro</h2>
@@ -22,9 +24,15 @@
             <h1 id="header-title">Dashboard</h1>
         </div>
         <div class="stats-row">
-            <div class="card"><small>Net Balance</small><h2 id="net-bal">₹0.00</h2></div>
-            <div class="card"><small>Total Income</small><h2 id="inc-bal" class="income-val">₹0.00</h2></div>
-            <div class="card"><small>Total Expenses</small><h2 id="exp-bal" class="expense-val">₹0.00</h2></div>
+            <div class="card"><small>Net Balance</small>
+                <h2 id="net-bal">₹0.00</h2>
+            </div>
+            <div class="card"><small>Total Income</small>
+                <h2 id="inc-bal" class="income-val">₹0.00</h2>
+            </div>
+            <div class="card"><small>Total Expenses</small>
+                <h2 id="exp-bal" class="expense-val">₹0.00</h2>
+            </div>
         </div>
 
         <div class="dashboard-grid">
@@ -62,7 +70,9 @@
                         <div class="goal-info">
                             <h4 id="goal-name">No Goal</h4><small id="goal-percent" class="income-val">0%</small>
                         </div>
-                        <div class="bar-container"><div id="goal-bar" class="bar-fill"></div></div>
+                        <div class="bar-container">
+                            <div id="goal-bar" class="bar-fill"></div>
+                        </div>
                         <small id="goal-status">₹0 / ₹0</small>
                     </div>
                     <button onclick="setNewGoal()" class="btn-outline">Edit Goal</button>
@@ -90,7 +100,8 @@
                             <option value="Misc">🗂️ Misc</option>
                         </select>
                         <button type="submit" id="submit-btn">Add Transaction</button>
-                        <button type="button" id="cancel-edit" class="hidden" onclick="cancelEdit()">Cancel Edit</button>
+                        <button type="button" id="cancel-edit" class="hidden" onclick="cancelEdit()">Cancel
+                            Edit</button>
                     </form>
                 </div>
 
@@ -114,15 +125,24 @@
                     <button onclick="closeFullAnalytics()" class="btn-alt" style="width: auto;">Close</button>
                 </div>
                 <div class="stats-row modal-stats" style="grid-template-columns: repeat(4, 1fr);">
-                    <div class="card inner-card"><small>Top Category</small><h3 id="top-cat-name">None</h3></div>
-                    <div class="card inner-card"><small>Daily Burn</small><h3 id="avg-spend">₹0</h3></div>
-                    <div class="card inner-card"><small>Survival</small><h3 id="survival-days">0 Days</h3></div>
-                    <div class="card inner-card"><small>Savings Ratio</small><h3 id="savings-ratio">0%</h3></div>
+                    <div class="card inner-card"><small>Top Category</small>
+                        <h3 id="top-cat-name">None</h3>
+                    </div>
+                    <div class="card inner-card"><small>Daily Burn</small>
+                        <h3 id="avg-spend">₹0</h3>
+                    </div>
+                    <div class="card inner-card"><small>Survival</small>
+                        <h3 id="survival-days">0 Days</h3>
+                    </div>
+                    <div class="card inner-card"><small>Savings Ratio</small>
+                        <h3 id="savings-ratio">0%</h3>
+                    </div>
                 </div>
                 <div class="budget-management-area">
                     <div class="budget-header">
                         <small class="text-muted">BUDGET CONTROL</small>
-                        <button onclick="setCategoryBudget()" class="edit-link" style="width: auto; margin:0;">Set New Limit ⚙️</button>
+                        <button onclick="setCategoryBudget()" class="edit-link" style="width: auto; margin:0;">Set New
+                            Limit ⚙️</button>
                     </div>
                 </div>
                 <div id="detailed-graph-list"></div>
@@ -156,4 +176,5 @@
     </main>
     <script src="app.js"></script>
 </body>
+
 </html>

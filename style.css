@@ -1,3 +1,6 @@
+/* =========================================
+   1. CORE VARIABLES & GLOBAL RESET
+   ========================================= */
 :root {
     --bg-color: #030303;
     --text-main: #ffffff;
@@ -11,9 +14,12 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-main);
-    overflow: hidden;
+    overflow: hidden; /* Keeps landing page clean without scrollbars */
 }
 
+/* =========================================
+   2. NAVIGATION & BRANDING (Header)
+   ========================================= */
 .top-left-logo {
     position: fixed;
     top: 35px;
@@ -34,6 +40,9 @@ body {
     letter-spacing: -0.5px;
 }
 
+/* =========================================
+   3. HERO SECTION (Main Content)
+   ========================================= */
 .hero-section {
     height: 100vh;
     display: flex;
@@ -68,6 +77,9 @@ body {
     margin-bottom: 40px;
 }
 
+/* =========================================
+   4. INTERACTIVE ELEMENTS (Buttons & Badges)
+   ========================================= */
 .cta-btn {
     background: var(--accent-blue);
     color: white;
@@ -98,6 +110,34 @@ body {
     border-radius: 50%;
 }
 
+.member-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 6px 14px;
+    border-radius: 50px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border-color);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.avatar-stack {
+    display: flex;
+    margin-right: 10px;
+}
+
+.avatar-stack img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--bg-color);
+    margin-left: -10px;
+}
+
+/* =========================================
+   5. VISUAL EFFECTS (Glow & Floating Icons)
+   ========================================= */
 .glow-arc {
     position: absolute;
     bottom: -180px;
@@ -125,27 +165,75 @@ body {
     justify-content: center;
 }
 
-.member-badge {
-    display: inline-flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 6px 14px;
-    border-radius: 50px;
-    margin-bottom: 25px;
-    border: 1px solid var(--border-color);
-    font-size: 0.85rem;
-    color: var(--text-muted);
+/* =========================================
+   6. MEDIA QUERIES (Mobile Responsiveness)
+   ========================================= */
+
+/* Tablets and Laptops (up to 1024px) */
+@media (max-width: 1024px) {
+    .hero-container {
+        max-width: 80%;
+    }
+    
+    .floating-tool-icon {
+        right: 20px;
+        top: 80px;
+    }
 }
 
-.avatar-stack {
-    display: flex;
-    margin-right: 10px;
+/* Mobile Devices (up to 768px) */
+@media (max-width: 768px) {
+    body {
+        overflow-y: auto; /* Allow scrolling if content exceeds height on mobile */
+    }
+
+    .top-left-logo {
+        top: 20px;
+        left: 20px;
+    }
+
+    .hero-section {
+        padding: 0 20px;
+    }
+
+    .hero-title {
+        letter-spacing: -1px; /* Reduce tight spacing for readability */
+        margin-bottom: 15px;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    .cta-btn {
+        padding: 14px 28px;
+        font-size: 1rem;
+    }
+
+    .glow-arc {
+        width: 150%;
+        bottom: -100px;
+    }
+
+    .floating-tool-icon {
+        display: none; /* Hide floating icons to reduce clutter on small screens */
+    }
 }
 
-.avatar-stack img {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    border: 2px solid var(--bg-color);
-    margin-left: -10px;
+/* Small Phones (up to 480px) */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .member-badge {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+    }
+
+    .avatar-stack img {
+        width: 20px;
+        height: 20px;
+    }
 }
