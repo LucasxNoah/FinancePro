@@ -324,6 +324,7 @@ entryForm.addEventListener('submit', e => {
             cat: eCatInput.value, 
             date: new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }) 
         }); 
+        entryForm.reset();
     }
     save(); 
     showNotify("Saved!");
