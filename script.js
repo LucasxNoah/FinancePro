@@ -1,7 +1,7 @@
 const hero = document.querySelector('.hero-container');
 const logo = document.querySelector('.top-left-logo');
 
-
+// loading another page
 function launchApp() {
     document.body.style.opacity = "0";
     document.body.style.transition = "opacity 0.4s ease";
@@ -10,6 +10,7 @@ function launchApp() {
         window.location.href = "main.html";
     }, 400);
 }
+
 
 function onload() {
     if (hero && logo) {

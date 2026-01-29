@@ -1,6 +1,4 @@
-/* =========================================
-   1. GLOBAL STYLES & VARIABLES
-   ========================================= */
+/* global variables */
 :root {
     --bg: #000000;
     --sidebar: #080808;
@@ -23,9 +21,7 @@ body {
     overflow: hidden;
 }
 
-/* =========================================
-   2. LAYOUT STRUCTURE (Sidebar & Main)
-   ========================================= */
+/* SideBar And Mai Section */
 aside {
     width: 250px;
     background: var(--sidebar);
@@ -61,9 +57,6 @@ main {
     gap: 30px;
 }
 
-/* =========================================
-   3. COMPONENTS (Cards, Forms, Buttons)
-   ========================================= */
 
 /* Cards */
 .card {
@@ -135,9 +128,6 @@ button {
     cursor: pointer;
 }
 
-/* =========================================
-   4. TRANSACTION LIST & PROGRESS BARS
-   ========================================= */
 
 /* Transaction Items */
 .tx-item {
@@ -201,9 +191,6 @@ button {
     background: linear-gradient(90deg, var(--income), #00cc76) !important;
 }
 
-/* =========================================
-   5. PROFILE & ANALYTICS MODAL
-   ========================================= */
 
 /* Profiles */
 #profile-list {
@@ -225,7 +212,7 @@ button {
     background: var(--accent);
 }
 
-/* Modals & Analytics Overlay */
+/* Analytics Section */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -281,9 +268,7 @@ button {
     background: rgba(255, 255, 255, 0.08);
 }
 
-/* =========================================
-   6. NOTIFICATIONS & ANIMATIONS
-   ========================================= */
+/* Notification Section */
 #notification-container {
     position: fixed;
     bottom: 20px;
@@ -302,6 +287,7 @@ button {
     animation: slideIn 0.3s ease-out forwards;
 }
 
+/* animations */
 @keyframes slideIn {
     from {
         transform: translateX(100%);
@@ -314,9 +300,7 @@ button {
     }
 }
 
-/* =========================================
-   7. UTILITY CLASSES
-   ========================================= */
+/* Utility cases */
 .income-val {
     color: var(--income);
     font-weight: bold;
@@ -339,22 +323,17 @@ button {
     color: var(--text-muted);
 }
 
-/* =========================================
-   8. MEDIA QUERIES (Mobile Responsiveness)
-   ========================================= */
-
-/* Tablet & Smaller Desktop (up to 1024px) */
+/* media queries */
 @media (max-width: 1024px) {
     .dashboard-grid {
-        grid-template-columns: 1fr; /* Stack the main content and side sidebar */
+        grid-template-columns: 1fr; 
     }
 }
 
-/* Mobile & Large Phones (up to 768px) */
 @media (max-width: 768px) {
     body {
-        flex-direction: column; /* Move sidebar to top/bottom or use a toggle */
-        overflow-y: auto; /* Allow the whole page to scroll */
+        flex-direction: column; 
+        overflow-y: auto; 
         height: auto;
     }
 
@@ -372,7 +351,7 @@ button {
     }
 
     .stats-row {
-        grid-template-columns: 1fr; /* Stack Balance/Income/Expense cards */
+        grid-template-columns: 1fr; 
         gap: 15px;
     }
 
@@ -390,7 +369,7 @@ button {
         display: flex;
         gap: 10px;
         padding-bottom: 10px;
-        overflow-x: auto; /* Allow horizontal swiping for profiles on mobile */
+        overflow-x: auto; 
     }
 
     .profile-btn {
@@ -400,7 +379,6 @@ button {
     }
 }
 
-/* Small Phones (up to 480px) */
 @media (max-width: 480px) {
     .card-header {
         flex-direction: column;
@@ -409,7 +387,7 @@ button {
     }
 
     #category-filter, #filter-select, #search-input {
-        width: 100%; /* Make search and filters full width */
+        width: 100%; 
         margin-bottom: 8px;
     }
 

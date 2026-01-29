@@ -1,6 +1,4 @@
-/* =========================================
-   1. GLOBAL STATE & CONSTANTS
-   ========================================= */
+// storage
 const STORAGE_PROFILES = 'financePro_profiles';
 const STORAGE_GOAL = 'financePro_goal';
 
@@ -9,7 +7,6 @@ let activeProfileId = profiles[0].id;
 let goal = JSON.parse(localStorage.getItem(STORAGE_GOAL)) || { name: "Savings Goal", target: 50000 };
 let goalCelebrated = false;
 
-// --- DOM ELEMENTS ---
 
 // Headers & Filters
 const headerTitle = document.getElementById('header-title');
@@ -58,9 +55,6 @@ const savingsRatioText = document.getElementById('savings-ratio');
 notifyContainer.id = 'notification-container';
 document.body.appendChild(notifyContainer);
 
-/* =========================================
-   2. DATA PERSISTENCE
-   ========================================= */
 
 function save() {
     localStorage.setItem(STORAGE_PROFILES, JSON.stringify(profiles));
@@ -75,10 +69,8 @@ function resetApp() {
     } 
 }
 
-/* =========================================
-   3. UI UPDATES & DASHBOARD
-   ========================================= */
 
+// for update in dashboard
 function changeDashboard() {
     const p = profiles.find(prof => prof.id === activeProfileId);
     headerTitle.innerText = p.name;
@@ -96,7 +88,6 @@ function changeDashboard() {
         amt > 0 ? totalInc += amt : totalExp += Math.abs(amt); 
     });
 
-    // Render filtered list
     p.transactions.filter(tx => 
         tx.desc.toLowerCase().includes(search) && 
         (cat === 'all' || tx.cat === cat) && 
@@ -156,7 +147,7 @@ function updateSpendAnalysis(transactions) {
 
     totalSpendTag.innerText = `-₹${totalExp.toFixed(0)}`;
 
-    // Dashboard Graph
+    // Dashboard Graph section logic
     graphContainer.innerHTML = sorted.map(item => {
         const budget = p.budgets?.[item[0]];
         let badge = budget ? `<span class="usage-badge ${item[1] > budget ? 'expense-val' : 'income-val'}">${((item[1] / budget) * 100).toFixed(0)}%</span>` : "";
@@ -164,7 +155,7 @@ function updateSpendAnalysis(transactions) {
         <div class="bar-container"><div class="bar-fill ${budget && item[1] > budget ? 'warning' : ''}" style="width:${(item[1] / max) * 100}%"></div></div></div>`;
     }).join('');
 
-    // Modal Metrics
+    // Statistics for detailed insights
     const dailyBurn = totalExp / 30;
     const survival = dailyBurn > 0 ? Math.floor(netBal / dailyBurn) : 0;
     topCatName.innerText = sorted[0][0];
@@ -190,10 +181,8 @@ function updateSpendAnalysis(transactions) {
     }
 }
 
-/* =========================================
-   4. TRANSACTION ACTIONS
-   ========================================= */
 
+// for transactions
 function editTx(id) {
     const p = profiles.find(prof => prof.id === activeProfileId);
     const tx = p.transactions.find(t => t.id === id);
@@ -236,10 +225,7 @@ function setCategoryBudget() {
     }
 }
 
-/* =========================================
-   5. PROFILE & GOAL MANAGEMENT
-   ========================================= */
-
+// profile section logic
 function switchProfile(id) { 
     activeProfileId = id; 
     cancelEdit(); 
@@ -289,9 +275,7 @@ function updateGoalProgress(bal) {
     }
 }
 
-/* =========================================
-   6. UTILITIES (NOTIFY & VISUALS)
-   ========================================= */
+
 
 function showNotify(msg) {
     const toast = document.createElement('div');
@@ -304,6 +288,8 @@ function showNotify(msg) {
     }, 3000);
 }
 
+
+// confetti logic
 function fireConfetti() { 
     const end = Date.now() + 3000; 
     (function frame() { 
@@ -316,10 +302,7 @@ function fireConfetti() {
 function openFullAnalytics() { analyticsPage.classList.remove('hidden'); }
 function closeFullAnalytics() { analyticsPage.classList.add('hidden'); }
 
-/* =========================================
-   7. EVENT LISTENERS & INIT
-   ========================================= */
-
+// transaction form logic
 entryForm.addEventListener('submit', e => {
     e.preventDefault(); 
     const p = profiles.find(prof => prof.id === activeProfileId);

@@ -1,6 +1,4 @@
-/* =========================================
-   1. CORE VARIABLES & GLOBAL RESET
-   ========================================= */
+/* global variables */
 :root {
     --bg-color: #030303;
     --text-main: #ffffff;
@@ -14,12 +12,10 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-main);
-    overflow: hidden; /* Keeps landing page clean without scrollbars */
+    overflow: hidden; 
 }
 
-/* =========================================
-   2. NAVIGATION & BRANDING (Header)
-   ========================================= */
+/* Navigation (Header) */
 .top-left-logo {
     position: fixed;
     top: 35px;
@@ -40,9 +36,7 @@ body {
     letter-spacing: -0.5px;
 }
 
-/* =========================================
-   3. HERO SECTION (Main Content)
-   ========================================= */
+/* hero section */
 .hero-section {
     height: 100vh;
     display: flex;
@@ -77,9 +71,7 @@ body {
     margin-bottom: 40px;
 }
 
-/* =========================================
-   4. INTERACTIVE ELEMENTS (Buttons & Badges)
-   ========================================= */
+/* buttons  */
 .cta-btn {
     background: var(--accent-blue);
     color: white;
@@ -135,9 +127,7 @@ body {
     margin-left: -10px;
 }
 
-/* =========================================
-   5. VISUAL EFFECTS (Glow & Floating Icons)
-   ========================================= */
+/* visual effects */
 .glow-arc {
     position: absolute;
     bottom: -180px;
@@ -165,11 +155,7 @@ body {
     justify-content: center;
 }
 
-/* =========================================
-   6. MEDIA QUERIES (Mobile Responsiveness)
-   ========================================= */
-
-/* Tablets and Laptops (up to 1024px) */
+/* media queries */
 @media (max-width: 1024px) {
     .hero-container {
         max-width: 80%;
@@ -181,10 +167,9 @@ body {
     }
 }
 
-/* Mobile Devices (up to 768px) */
 @media (max-width: 768px) {
     body {
-        overflow-y: auto; /* Allow scrolling if content exceeds height on mobile */
+        overflow-y: auto; 
     }
 
     .top-left-logo {
@@ -197,7 +182,7 @@ body {
     }
 
     .hero-title {
-        letter-spacing: -1px; /* Reduce tight spacing for readability */
+        letter-spacing: -1px; 
         margin-bottom: 15px;
     }
 
@@ -217,11 +202,10 @@ body {
     }
 
     .floating-tool-icon {
-        display: none; /* Hide floating icons to reduce clutter on small screens */
+        display: none; 
     }
 }
 
-/* Small Phones (up to 480px) */
 @media (max-width: 480px) {
     .hero-title {
         font-size: 2.5rem;
